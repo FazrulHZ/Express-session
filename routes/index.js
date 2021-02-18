@@ -19,6 +19,7 @@ router.post('/save', function (req, res, next) {
     }
   });
   console.log(req);
+  console.log('===========================================================================');
 });
 
 // router.get('/save', function (req, res, next) {
@@ -35,6 +36,7 @@ router.get('/load', function (req, res, next) {
     session: req.sessionID
   });
   console.log(req);
+  console.log('===========================================================================');
 });
 
 module.exports = router;

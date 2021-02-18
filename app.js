@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 var session = require('express-session')
+var FileStore = require('session-file-store')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -21,14 +22,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
-  origin: 'http://localhost:8080',
-  credentials: true
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true // enable set cookie
 }))
 app.use(session({
   secret: 'keyboard cat',
+  store: new FileStore,
+  cookie: {
+    maxAge: 3600000,
+    httpOnly: false,
+    secure: false // for normal http connection if https is there we have to set it to true
+  },
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: true
 }))
+app.use(function (req, res, next) {
+
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+  res.header("Access-Control-Allow-Origin", 'http://localhost:3000');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-   Type, Accept, Authorization");
+  next();
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
