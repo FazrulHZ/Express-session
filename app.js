@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 var session = require('express-session')
-var FileStore = require('session-file-store')(session);
+// var FileStore = require('session-file-store')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -28,10 +28,10 @@ app.use(cors({
 }))
 app.use(session({
   secret: 'keyboard cat',
-  store: new FileStore,
+  // store: new FileStore,
   cookie: {
     maxAge: 3600000,
-    httpOnly: false,
+    httpOnly: true,
     secure: false // for normal http connection if https is there we have to set it to true
   },
   resave: false,
