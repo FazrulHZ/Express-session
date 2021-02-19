@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 var session = require('express-session')
-var FileStore = require('session-file-store')(session);
+// var FileStore = require('session-file-store')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -28,7 +28,7 @@ app.use(cors({
 }))
 app.use(session({
   secret: 'keyboard cat',
-  store: new FileStore,
+  // store: new FileStore,
   cookie: {
     maxAge: 3600000,
     httpOnly: false,
@@ -37,14 +37,15 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
-app.use(function (req, res, next) {
 
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
-  res.header("Access-Control-Allow-Origin", 'http://localhost:8080');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  next();
-});
+// app.use(function (req, res, next) {
+
+//   res.header('Access-Control-Allow-Credentials', true);
+//   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+//   res.header("Access-Control-Allow-Origin", 'http://localhost:8080');
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+//   next();
+// });
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
