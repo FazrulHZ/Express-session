@@ -31,7 +31,7 @@ app.use(session({
   // store: new FileStore,
   cookie: {
     maxAge: 3600000,
-    httpOnly: false,
+    httpOnly: true,
     secure: false // for normal http connection if https is there we have to set it to true
   },
   resave: false,
